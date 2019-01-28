@@ -4,7 +4,7 @@ import requests
 import json
 import sys
 from bs4 import BeautifulSoup
-from model import dcard_article_model, dcard_response_model
+from dcard_model import dcard_article_model, dcard_response_model
 
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT10.0; Win64; rv:64.0)', 'charset':'utf-8'}
 
@@ -40,8 +40,8 @@ def get_article_content(board, article_id):
             for r in remove_divs:
                 r.extract()
         content = main_content.text
-    except:
-        print('get_article_content error')
+    except Exception as ex:
+        print(str(ex))
     return content
 
 
@@ -74,18 +74,47 @@ def get_response(article_id):
                     response_model.image_urls.extend(handleImg(rep['mediaMeta']))
                     response_model.image_count = len(response_model.image_urls)
                 comments.append(response_model)
-    except:
-        print('get_response error')
+    except Exception as ex:
+        print(str(ex))
     return comments
+
+def to_model(articles, is_get_response):
+    model = []
+    article_id=0
+    try:
+        for article in articles:
+            board=article['forumAlias']
+            if (article_id==0):
+                article_id=article['id']
+
+            article_model = dcard_article_model()
+            article_model.forum_name = article['forumName']
+            article_model.article_id = article['id']
+            article_model.title = article['title']
+            article_model.content = get_article_content(board, article['id'])
+            article_model.url = 'https://www.dcard.tw/f/' + board + '/p/'+str(article['id'])
+            article_model.date = article['createdAt']
+            if (article['media'] is None):
+                article_model.image_urls.extend(handleImg(article['mediaMeta']))
+            else:
+                for media_url in article['media']:
+                    article_model.image_urls.append(media_url)
+            article_model.image_count = len(article_model.image_urls)
+            if (is_get_response==1):
+                article_model.responses.extend(get_response(article['id']))
+            model.append(article_model)
+        pass
+    except Exception as ex:
+        print(ex)
+    return article_id, model
 
 
 def dcard_crawl(board, is_popular, before_article_id, after_article_id, limit, is_get_response):
     dcard_articles = []
+    article_id=0
     try:
 
         articles=[]
-        article_id=0
-
         crawl_url='https://www.dcard.tw/_api/forums/'+ board +'/posts?popular='+ is_popular +'&limit='+str(limit)
 
         if (is_popular=='false'):
@@ -98,25 +127,39 @@ def dcard_crawl(board, is_popular, before_article_id, after_article_id, limit, i
         result = requests.get(crawl_url, headers=headers)
         articles = json.loads(result.text)
 
-        for article in articles:
-            if (article_id==0):
-                article_id=article['id']
+        article_id, dcard_articles = to_model(articles, is_get_response)
 
-            article_model = dcard_article_model()
-            article_model.forum_name = article['forumName']
-            article_model.article_id = article['id']
-            article_model.title = article['title']
-            article_model.content = get_article_content(board, article['id'])
-            article_model.url = 'https://www.dcard.tw/f/' + board + '/p/'+str(article['id'])
-            article_model.date = article['createdAt']
-            article_model.image_urls.extend(handleImg(article['mediaMeta']))
-            article_model.image_count = len(article_model.image_urls)
-            if (is_get_response==1):
-                article_model.responses.extend(get_response(article['id']))
-            dcard_articles.append(article_model)
+    except Exception as ex:
+        print(str(ex))
+
+    return article_id, dcard_articles
 
 
-    except Exception as e1:
-        print(str(e1))
 
+def dcard_crawl_by_keyword(keyword, limit, is_get_response):
+    dcard_articles = []
+    article_id=0
+    try:
+        encoding_keyword=keyword
+        articles=[]
+        if (limit<31):
+            crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
+            articles = json.loads(requests.get(crawl_url+'&limit='+str(limit)+'&offset=0&since=0', headers=headers).text)
+        else:
+
+            crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
+            articles = json.loads(requests.get(crawl_url+'&limit='+str(limit)+'&offset=0&since=0', headers=headers).text)
+            for i in xrange(1, (limit//30), 1):
+                crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
+                articles.extend(json.loads(requests.get(crawl_url+'?limit=30&offset='+ str(i*30) +'&since=0', headers=headers).text))
+            
+            if (limit%30 > 0):
+                query_count=len(result)
+                crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
+                articles.extend(json.loads(requests.get(crawl_url+'&limit='+ str(limit%30) +'&offset='+ str(query_count) +'&since=0', headers=headers).text))
+
+        article_id, dcard_articles = to_model(articles, is_get_response)
+
+    except Exception as ex:
+        print(str(ex))
     return article_id, dcard_articles
