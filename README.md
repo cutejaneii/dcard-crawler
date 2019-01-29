@@ -9,12 +9,12 @@
 
 | 參數 | 縮寫 | 預設值 | 說明 | 
 | ------ | ------ | ------ | ------ |
-| forum | -f | trending | |
-| article_id | -a | | |
-| mode | -m | | |
-| count | -c | | |
-| get_responses | -r | | |
-| keyword | -k | KFC | |
+| forum | -f | trending | 看板名稱 |
+| article_id | -a | 1 | 文章ID |
+| mode | -m | 0 | 爬蟲模式，0代表最受歡迎文章，1代表較新文章， |
+| count | -c | 10 | 抓取的文章數量 |
+| get_responses | -r | 0 | 是否要取得回覆，0代表不取，1代表取 |
+| keyword | -k | KFC | 關鍵字 |
 
 
 詳見說明：
