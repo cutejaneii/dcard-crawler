@@ -52,13 +52,13 @@ def get_response(article_id):
         result = []
         load_more=False
         crawl_url='https://www.dcard.tw/_api/posts/'+ str(article_id) +'/comments'
-        result = json.loads(requests.get(crawl_url+'?limit=50', headers=headers).text)
+        result = requests.get(crawl_url+'?limit=50', headers=headers).json()
 
         if (len(result)==50):
             load_more=True
 
         while (load_more==True):
-            data = json.loads(requests.get(crawl_url+'?after='+str(len(result)), headers=headers).text)
+            data = requests.get(crawl_url+'?after='+str(len(result)), headers=headers).json()
             result.extend(data)
             if (len(data)<30):
                 load_more=False
@@ -70,6 +70,7 @@ def get_response(article_id):
                 response_model.content = rep['content']
                 response_model.date = rep['createdAt']
                 response_model.likeCount=rep['likeCount']
+                response_model.floor=rep['floor']
                 if (rep['mediaMeta']!=[]):
                     response_model.image_urls.extend(handleImg(rep['mediaMeta']))
                     response_model.image_count = len(response_model.image_urls)
@@ -125,7 +126,7 @@ def dcard_crawl(board, is_popular, before_article_id, after_article_id, limit, i
                 crawl_url+='&after='+str(after_article_id)
 
         result = requests.get(crawl_url, headers=headers)
-        articles = json.loads(result.text)
+        articles = result.json()
 
         article_id, dcard_articles = to_model(articles, is_get_response)
 
@@ -140,23 +141,21 @@ def dcard_crawl_by_keyword(keyword, limit, is_get_response):
     dcard_articles = []
     article_id=0
     try:
-        encoding_keyword=keyword
         articles=[]
+        payload = {'query':keyword, 'highlight':'true', 'limit':limit, 'offset':0, 'since':0}
         if (limit<31):
-            crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
-            articles = json.loads(requests.get(crawl_url+'&limit='+str(limit)+'&offset=0&since=0', headers=headers).text)
+            headers2 = {'User-Agent':'Mozilla/5.0 (Windows NT10.0; Win64; rv:64.0)', 'Content-Type':'application/json', 'charset':'utf-8'}
+            articles = requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers2).json()
         else:
-
-            crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
-            articles = json.loads(requests.get(crawl_url+'&limit='+str(limit)+'&offset=0&since=0', headers=headers).text)
+            payload = {'query':keyword, 'highlight':'true', 'limit':limit, 'offset':0, 'since':0}
+            articles = requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers2).json()
             for i in xrange(1, (limit//30), 1):
-                crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
-                articles.extend(json.loads(requests.get(crawl_url+'?limit=30&offset='+ str(i*30) +'&since=0', headers=headers).text))
-            
+                payload = {'query':keyword, 'highlight':'true', 'limit':30, 'offset':i*30, 'since':0}
+                articles = requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers2).json()
+
             if (limit%30 > 0):
-                query_count=len(articles)
-                crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
-                articles.extend(json.loads(requests.get(crawl_url+'&limit='+ str(limit%30) +'&offset='+ str(query_count) +'&since=0', headers=headers).text))
+                payload = {'query':keyword, 'highlight':'true', 'limit':limit%30, 'offset':len(articles), 'since':0}
+                articles = requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers2).json()
 
         article_id, dcard_articles = to_model(articles, is_get_response)
 
