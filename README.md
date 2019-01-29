@@ -52,5 +52,6 @@
 
 ### 利用「關鍵字」取得文章
 
-<pre><code>python dcard_main.py -m 3 -k 張學友</code></pre>
+取得關鍵字為「小宇」的最新「5」筆文章
+<pre><code>$ python dcard_main.py -m 3 -k 小宇 -c 5</code></pre>
 
