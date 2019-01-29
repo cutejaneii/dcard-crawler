@@ -7,17 +7,14 @@
 ## 使用方法
 參數說明：
 
-| Plugin | README |
-| ------ | ------ |
-
 | 參數 | 縮寫 | 預設值 | 說明 | 
 | ------ | ------ | ------ | ------ |
 | forum | -f | trending | |
-| article_id | | |
-| mode | | |
-| count | | |
-| get_responses | | |
-| keyword | | |
+| article_id | -a | | |
+| mode | -m | | |
+| count | -c | | |
+| get_responses | -r | | |
+| keyword | -k | KFC | |
 
 
 詳見說明：
