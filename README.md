@@ -6,6 +6,10 @@
 <pre><code>$ git clone https://github.com/cutejaneii/dcard-crawler.git</code></pre>
 ## 使用方法
 參數說明：
+
+| Plugin | README |
+| ------ | ------ |
+
 | 參數 | 縮寫 | 預設值 | 說明 | 
 | ------ | ------ | ------ | ------ |
 | forum | -f | trending | |
