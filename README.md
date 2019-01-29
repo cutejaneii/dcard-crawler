@@ -3,13 +3,18 @@
 本專案利用[requests](https://github.com/requests/requests)呼叫DCARD API取得文章
 
 ## 安裝方法
-<pre><code>git clone https://github.com/cutejaneii/dcard-crawler.git</code></pre>
+<pre><code>$ git clone https://github.com/cutejaneii/dcard-crawler.git</code></pre>
 ## 使用方法
+參數說明：
+| 參數 | 縮寫 | 預設值 | 說明 | 
+| ------ | ------ | ------ | ------ |
+| forum | -f | trending | |
+| article_id | | |
+| mode | | |
+| count | | |
+| get_responses | | |
+| keyword | | |
 
-Parameters:
-  - h
-  - m
-  - k
 
 詳見說明：
 <pre><code>python dcard_main.py -h</code></pre>
