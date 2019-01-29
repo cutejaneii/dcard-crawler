@@ -49,6 +49,8 @@
 ![image](https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode1_B.png)
 
 ### 取得較舊的文章
+取得「戲劇綜藝版」文章id小於「220000」的「10」筆文章
+<pre><code>$ python dcard_main.py -m 2 -f tvepisode -c 10 -a 220000</code></pre>
 
 ### 利用「關鍵字」取得文章
 
