@@ -29,52 +29,53 @@ def handleImg(mediaMeta):
 
 def get_article_content(board, article_id):
     content=''
+    get=''
     try:
         article_soup = get_dcard_article_soup('https://www.dcard.tw/f/'+ board +'/p/'+str(article_id))
 
         main_content = article_soup.find('div', {'class':'Post_content_NKEl9d'})
 
-        remove_divs = main_content.find('div', {'class':'Post_topicList_2U8B7-'})
-
-        if (remove_divs is not None):
-            for r in remove_divs:
-                r.extract()
-        content = main_content.text
+        if (main_content is not None):
+            remove_divs = main_content.find('div', {'class':'Post_topicList_2U8B7-'})
+            if (remove_divs is not None):
+                for r in remove_divs:
+                    r.extract()
+            content = main_content.text
     except Exception as ex:
-        print(str(ex))
+        print(str(ex)+get)
     return content
 
 
 def get_response(article_id):
     comments=[]
     try:
-
         result = []
         load_more=False
         crawl_url='https://www.dcard.tw/_api/posts/'+ str(article_id) +'/comments'
         result = requests.get(crawl_url+'?limit=50', headers=headers).json()
 
-        if (len(result)==50):
-            load_more=True
+        if (type(result)!=dict):
+            if (len(result)==50):
+                load_more=True
 
-        while (load_more==True):
-            data = requests.get(crawl_url+'?after='+str(len(result)), headers=headers).json()
-            result.extend(data)
-            if (len(data)<30):
-                load_more=False
+            while (load_more==True):
+                data = requests.get(crawl_url+'?after='+str(len(result)), headers=headers).json()
+                result.extend(data)
+                if (len(data)<30):
+                    load_more=False
 
-        for rep in result:
-            if (rep['hidden']==False):
+            for rep in result:
+                if (rep['hidden']==False):
 
-                response_model = dcard_response_model()
-                response_model.content = rep['content']
-                response_model.date = rep['createdAt']
-                response_model.likeCount=rep['likeCount']
-                response_model.floor=rep['floor']
-                if (rep['mediaMeta']!=[]):
-                    response_model.image_urls.extend(handleImg(rep['mediaMeta']))
-                    response_model.image_count = len(response_model.image_urls)
-                comments.append(response_model)
+                    response_model = dcard_response_model()
+                    response_model.content = rep['content']
+                    response_model.date = rep['createdAt']
+                    response_model.likeCount=rep['likeCount']
+                    response_model.floor=rep['floor']
+                    if (rep['mediaMeta']!=[]):
+                        response_model.image_urls.extend(handleImg(rep['mediaMeta']))
+                        response_model.image_count = len(response_model.image_urls)
+                    comments.append(response_model)
     except Exception as ex:
         print(str(ex))
     return comments
@@ -89,10 +90,11 @@ def to_model(articles, is_get_response):
                 article_id=article['id']
 
             article_model = dcard_article_model()
+            article_model.content = get_article_content(board, article['id'])
+
             article_model.forum_name = article['forumName']
             article_model.article_id = article['id']
             article_model.title = article['title']
-            article_model.content = get_article_content(board, article['id'])
             article_model.url = 'https://www.dcard.tw/f/' + board + '/p/'+str(article['id'])
             article_model.date = article['createdAt']
             if (article['media'] is None):
@@ -100,9 +102,9 @@ def to_model(articles, is_get_response):
             else:
                 for media_url in article['media']:
                     article_model.image_urls.append(media_url)
-            article_model.image_count = len(article_model.image_urls)
-            if (is_get_response==1):
-                article_model.responses.extend(get_response(article['id']))
+                article_model.image_count = len(article_model.image_urls)
+                if (is_get_response==1):
+                    article_model.responses.extend(get_response(article['id']))
             model.append(article_model)
         pass
     except Exception as ex:
@@ -156,7 +158,7 @@ def dcard_crawl_by_keyword(keyword, limit, is_get_response):
             if (limit%30 > 0):
                 payload = {'query':keyword, 'highlight':'true', 'limit':limit%30, 'offset':len(articles), 'since':0}
                 articles = requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers2).json()
-
+ 
         article_id, dcard_articles = to_model(articles, is_get_response)
 
     except Exception as ex:
