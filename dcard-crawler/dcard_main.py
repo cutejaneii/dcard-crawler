@@ -7,7 +7,7 @@ if __name__ ==  '__main__':
     parser.add_argument('-o', '--output', help='output document name')
     parser.add_argument('-f', '--forum', default='trending', help='Dcard forum name (default: trending)')
     parser.add_argument('-a', '--article_id', type=int, default=160000, help='Article id (default: 160000)')
-    parser.add_argument('-m', '--mode', type=int, default=0, help='Query mode (default:0)  0:Most popular articles, 1:Get NEWER articles, 2:get OLDER articles, 4:get articles by KEYWORD ')
+    parser.add_argument('-m', '--mode', type=int, default=0, help='Query mode (default:0)  0:Most popular articles, 1:Get NEWER articles, 2:get OLDER articles, 3:get articles by KEYWORD ')
     parser.add_argument('-c', '--count', type=int, default=10, help='Article count')
     parser.add_argument('-r', '--get_responses', type=int, default=0, help='Get response (default:0)  0:No responses, 1:With response')
     parser.add_argument('-k', '--keyword', default='pizza', help='Keyword')
@@ -41,7 +41,6 @@ if __name__ ==  '__main__':
                     article_id, data = dcard_crawl_by_keyword(args.keyword, args.count, args.get_responses)
 
         for item in data:
-            print('--------------------------------------------------')
             print('['+ str(item.article_id) +'] '+item.title)
             print(type(item.title))
             if (type(item.title)==type(u'123')):
@@ -49,4 +48,4 @@ if __name__ ==  '__main__':
             if (args.get_responses==1):
                 print('-----------------RESPONSES-----------------------')
                 for r in item.responses:
-                    print(r.content+'\n')
+                    print(str(r.floor) + 'F: ' +r.content+'\n')
