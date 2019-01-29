@@ -121,10 +121,10 @@ def dcard_crawl(board, is_popular, before_article_id, after_article_id, limit, i
         crawl_url='https://www.dcard.tw/_api/forums/'+ board +'/posts?popular='+ is_popular +'&limit='+str(limit)
 
         if (is_popular=='false'):
-            if (before_article_id>0):
+            if (before_article_id>1):
                 crawl_url+='&before='+str(before_article_id)
 
-            if (after_article_id>0):
+            if (after_article_id>1):
                 crawl_url+='&after='+str(after_article_id)
 
         result = requests.get(crawl_url, headers=headers)
