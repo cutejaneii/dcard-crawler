@@ -154,6 +154,7 @@ def dcard_crawl_by_keyword(keyword, limit, is_get_response):
                 articles.extend(json.loads(requests.get(crawl_url+'?limit=30&offset='+ str(i*30) +'&since=0', headers=headers).text))
             
             if (limit%30 > 0):
+                query_count=len(articles)
                 crawl_url='https://www.dcard.tw/_api/search/posts?query='+ encoding_keyword +'&highlight=true'
                 articles.extend(json.loads(requests.get(crawl_url+'&limit='+ str(limit%30) +'&offset='+ str(query_count) +'&since=0', headers=headers).text))
 
