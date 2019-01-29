@@ -29,8 +29,8 @@
 <pre><code>$ python dcard_main.py -f food -c 5</code></pre>
 
 
-取得「美食版」最受歡迎的「2」筆文章及回覆
-<pre><code>$ python dcard_main.py -f food -c 5 -r 1</code></pre>
+取得「手作版」最受歡迎的「2」筆文章及回覆
+<pre><code>$ python dcard_main.py -f handicrafts -c 2 -r 1</code></pre>
 
 
 
