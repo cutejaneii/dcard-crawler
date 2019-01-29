@@ -24,6 +24,7 @@
 取得最受歡迎的10筆文章(預設看板:trending)
 <pre><code>$ python dcard_main.py</code></pre>
 
+![image](https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode0_A.png)
 https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode0_A.png
 
 取得「美食版」最受歡迎的「5」筆文章
