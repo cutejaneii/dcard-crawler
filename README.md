@@ -18,9 +18,21 @@
 
 
 詳見說明：
-<pre><code>python dcard_main.py -h</code></pre>
+<pre><code>$ python dcard_main.py -h</code></pre>
 
 ### 取得最受歡迎的文章
+取得最受歡迎的10筆文章(預設看板:trending)
+<pre><code>$ python dcard_main.py</code></pre>
+
+
+取得「美食版」最受歡迎的「5」筆文章
+<pre><code>$ python dcard_main.py -f food -c 5</code></pre>
+
+
+取得「美食版」最受歡迎的「2」筆文章及回覆
+<pre><code>$ python dcard_main.py -f food -c 5 -r 1</code></pre>
+
+
 
 ### 取得較新的文章
 
