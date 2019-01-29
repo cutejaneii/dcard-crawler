@@ -42,9 +42,6 @@ if __name__ ==  '__main__':
 
         for item in data:
             print('['+ str(item.article_id) +'] '+item.title)
-            print(type(item.title))
-            if (type(item.title)==type(u'123')):
-                print(item.title.encode('utf-8'))
             if (args.get_responses==1):
                 print('-----------------RESPONSES-----------------------')
                 for r in item.responses:
