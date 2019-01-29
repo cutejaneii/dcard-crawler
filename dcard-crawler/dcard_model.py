@@ -19,4 +19,4 @@ class dcard_response_model:
         self.likeCount=0
         self.image_urls=[]
         self.image_count=0
-    
+        self.floor=0
