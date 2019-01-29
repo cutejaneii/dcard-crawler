@@ -38,6 +38,16 @@
 
 ### 取得較新的文章
 
+取得「美食版」最新的「5」筆文章
+<pre><code>$ python dcard_main.py -m 1 -f food -c 5</code></pre>
+
+![image](https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode1_A.png)
+
+取得「美食版」大於文章id為「150000」的「5」筆文章
+<pre><code>$ python dcard_main.py -m 1 -f food -c 5 -a 150000</code></pre>
+
+![image](https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode1_B.png)
+
 ### 取得較舊的文章
 
 ### 利用「關鍵字」取得文章
