@@ -217,19 +217,13 @@ def dcard_crawl_by_keyword(keyword, limit, is_get_response):
         else:
             payload = {'query':keyword, 'highlight':'true', 'limit':30, 'offset':0, 'since':0}
             articles = requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers).json()
-            print(payload)
-            print(str(len(articles)))
             for i in xrange(1, (limit//30), 1):
                 payload = {'query':keyword, 'highlight':'true', 'limit':30, 'offset':i*30, 'since':0}
                 articles.extend(requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers).json())
-                print(payload)
-                print(str(len(articles)))
 
             if (limit%30 > 0):
                 payload = {'query':keyword, 'highlight':'true', 'limit':limit%30, 'offset':len(articles), 'since':0}
                 articles.extend(requests.get('https://www.dcard.tw/_api/search/posts', params=payload, headers=headers).json())
-                print(payload)
-                print(str(len(articles)))
 
         dcard_articles = threading_job(articles, is_get_response)
         dcard_articles.sort(key=take_articleid, reverse=True)
