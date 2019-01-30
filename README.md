@@ -40,8 +40,8 @@
 
 ![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode1_A.png)
 
-取得「美食版」大於文章id為「18000000」的「5」筆文章
-<pre><code>$ python dcard_main.py -m 1 -f food -c 5 -a 18000000</code></pre>
+取得「美食版」大於文章id為「19500000」的「5」筆文章
+<pre><code>$ python dcard_main.py -m 1 -f food -c 5 -a 19500000</code></pre>
 
 ![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode1_B.png)
 
