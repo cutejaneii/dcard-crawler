@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from dcard_crawl import dcard_crawl, dcard_crawl_by_keyword
+from dcard_crawler import dcard_crawl, dcard_crawl_by_keyword
 from argparse import ArgumentParser
 import datetime
 
