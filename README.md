@@ -6,6 +6,7 @@
 
 1. 爬文數量 >= 10，啟用multi-thread (Queue數量=10)
 2. 利用「關鍵字」取得文章時，有可能取到不存在的文章（可能被使用者刪除之類的），則該內容會為空，且回覆為0
+3. 爬文數量上限100
 
 ## 安裝方法
 <pre><code>$ git clone https://github.com/cutejaneii/dcard-crawler.git</code></pre>
