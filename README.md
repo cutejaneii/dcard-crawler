@@ -34,7 +34,7 @@
 取得「手作版」最受歡迎的「2」筆文章及回覆
 <pre><code>$ python dcard_main.py -f handicrafts -c 2 -r 1</code></pre>
 
-![image](https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode0_C.png)
+![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode0_C.png)
 
 ### 取得較新的文章
 
