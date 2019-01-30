@@ -17,9 +17,6 @@
 | keyword | -k | KFC | 關鍵字 |
 
 
-詳見說明：
-<pre><code>$ python dcard_main.py -h</code></pre>
-
 ### 取得最受歡迎的文章
 取得最受歡迎的10筆文章(預設看板:trending)
 <pre><code>$ python dcard_main.py</code></pre>
