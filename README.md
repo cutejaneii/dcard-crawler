@@ -1,6 +1,11 @@
 # dcard-crawler
 
-本專案利用[requests](https://github.com/requests/requests)呼叫DCARD API取得文章
+本專案利用[requests](https://github.com/requests/requests)呼叫DCARD API取得文章。
+
+## 說明
+
+1. 爬文數量 >= 10，啟用multi-thread
+2. 利用「關鍵字」取得文章時，有可能取到不存在的文章（可能被使用者刪除之類的），則該內容會為空，且回覆為0
 
 ## 安裝方法
 <pre><code>$ git clone https://github.com/cutejaneii/dcard-crawler.git</code></pre>
