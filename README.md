@@ -55,3 +55,12 @@
 取得關鍵字為「小宇」的最新「10」筆文章
 <pre><code>$ python dcard_main.py -m 3 -k 小宇 -c 10</code></pre>
 ![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode3_A.png)
+
+## 效能
+比較條件：取得「美食版」大於文章id為「230000000」的「100」筆文章及回覆
+<pre><code>$ python m2.py -f food -m 1 -a 230000000 -r 1 -c 100</code></pre>
+
+| 情境 | 開始時間 | 結束時間 | 花費時間 | 
+| ------ | ------ | ------ | ------ |
+| forum | -f | trending | 看板名稱 |
+| forum | -f | trending | 看板名稱 |
