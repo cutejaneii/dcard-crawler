@@ -41,12 +41,12 @@
 取得「美食版」最新的「5」筆文章
 <pre><code>$ python dcard_main.py -m 1 -f food -c 5</code></pre>
 
-![image](https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode1_A.png)
+![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode1_A.png)
 
 取得「美食版」大於文章id為「150000」的「5」筆文章
 <pre><code>$ python dcard_main.py -m 1 -f food -c 5 -a 150000</code></pre>
 
-![image](https://github.com/cutejaneii/dcard-crawler/blob/master/images/mode1_B.png)
+![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode1_B.png)
 
 ### 取得較舊的文章
 取得「戲劇綜藝版」文章id小於「220000」的「10」筆文章
@@ -55,6 +55,6 @@
 
 ### 利用「關鍵字」取得文章
 
-取得關鍵字為「小宇」的最新「5」筆文章
-<pre><code>$ python dcard_main.py -m 3 -k 小宇 -c 5</code></pre>
-
+取得關鍵字為「小宇」的最新「10」筆文章
+<pre><code>$ python dcard_main.py -m 3 -k 小宇 -c 10</code></pre>
+![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode3_A.png)
