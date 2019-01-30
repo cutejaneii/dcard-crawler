@@ -12,7 +12,7 @@
 | forum | -f | trending | 看板名稱 |
 | article_id | -a | 1 | 文章ID |
 | mode | -m | 0 | 爬蟲模式<br> 0：爬最受歡迎文章<br>1：爬較新文章<br>2：爬較舊文章<br>3：依關鍵字爬文章 |
-| count | -c | 10 | 抓取的文章數量 |
+| count | -c | 10 | 抓取的文章數量，上限100筆 |
 | get_responses | -r | 0 | 是否要取得回覆，0代表不取，1代表取 |
 | keyword | -k | KFC | 關鍵字 |
 
