@@ -51,6 +51,7 @@
 ### 取得較舊的文章
 取得「戲劇綜藝版」文章id小於「220000」的「10」筆文章
 <pre><code>$ python dcard_main.py -m 2 -f tvepisode -c 10 -a 220000</code></pre>
+![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode2_A.png)
 
 ### 利用「關鍵字」取得文章
 
