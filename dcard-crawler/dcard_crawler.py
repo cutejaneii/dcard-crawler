@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from dcard_model import dcard_article_model, dcard_response_model
 import datetime
 import threading
-import Queue
+import queue
 
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT10.0; Win64; rv:64.0)', 'charset':'utf-8'}
 
@@ -149,7 +149,7 @@ def threading_job(articles, is_get_response):
     dcard_articles = []
     try:
         if (len(articles)>=10):
-            q = Queue.Queue(10)
+            q = queue.Queue(10)
             threads=[]
             each_count = len(articles)//9
 
