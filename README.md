@@ -66,6 +66,16 @@ Python3
 <pre><code>$ python3 dcard_main.py -m 3 -k 小宇 -c 10</code></pre>
 ![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/mode3_A.png)
 
+### 同場加映「取得DCARD所有看板名稱」
+
+取得所有分類看板
+<pre><code>$ python3 get_dcard_board_list.py</code></pre>
+![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/board_s0.png)
+
+取得所有學校看板
+<pre><code>$ python3 get_dcard_board_list.py -s 1</code></pre>
+![image](https://github.com/cutejaneii/repo_imgs/blob/master/dcard-crawler/board_s1.png)
+
 ## 效能
 比較條件1：取得「美食版」大於文章id為「230000000」的「100」筆文章及回覆
 <pre><code>$ python3 dcard_main.py -f food -m 1 -a 230000000 -r 1 -c 100</code></pre>
