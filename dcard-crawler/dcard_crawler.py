@@ -170,7 +170,8 @@ def threading_job(articles, is_get_response):
                 q.join()
 
             for _ in range(len(threads)):
-                dcard_articles.extend(q.get()) # 取出 queue 裡面的資料
+                queue_data = q.get()
+                dcard_articles.extend(queue_data) # 取出 queue 裡面的資料
         else:
             dcard_articles = to_model(articles, is_get_response)
     except Exception as ex:
